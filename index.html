@@ -5,12 +5,79 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quote by Eko Wibowo</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" crossorigin="anonymous">
 </head>
-<body class="flex items-center justify-center min-h-screen bg-gradient-to-br from-white to-yellow-300">
-    <div class="bg-white text-gray-800 text-center p-6 rounded-2xl shadow-xl max-w-md">
-        <img src="https://randomuser.me/api/portraits/men/75.jpg" alt="Eko Wibowo" class="w-20 h-20 mx-auto rounded-full mb-4">
-        <p class="text-lg font-semibold">"Luangkan waktu, jangan mencari waktu luang"</p>
-        <span class="text-gray-500 text-sm">- by Eko Wibowo</span>
+
+<body class="flex items-center justify-center min-h-screen bg-gradient-to-br from-white to-yellow-400">
+    <div class="text-center">
+        <h1 class="text-2x1 font-bold text-gray-900 mb-4 animate-fade-in">
+            * Kata-Kata Bijak Untuk Harimu *
+        </h1>
+        <div class="bg-white text-gray-800 text-center p-6 rounded-2xl shadow-xl max-w-md">
+            <img src="https://randomuser.me/api/portraits/men/75.jpg" alt="Eko Wibowo" class="w-20 h-20 mx-auto rounded-full mb-4">
+            <p id="quote" class="text-lg font-semibold"></p>
+            <span id="author" class="text-gray-500 text-sm"></span>
+        </div>
+        <div class="flex justify-center m-4">
+            <button id="prevBtn" class="bg-yellow-500 text-white px-4 rounded-l-lg mr-1"><i class="fas fa-arrow-left"></i></button>
+            <button id="nextBtn" class="bg-yellow-500 text-white px-4 rounded-r-lg"><i class="fas fa-arrow-right"></i></button>
+        </div>
     </div>
+    <script>
+        let quotes = [
+            //Type data dectionary
+            {
+                quote : "Luangkan waktu, jangan mencari waktu luang",
+                author : "- by Eko Wibowo"
+            },
+            {
+                quote : "Berdiri diatas kaki sendiri",
+                author : "- by Bung Karno"
+            }
+        ]
+
+        console.log("semua quote", quotes); //Untuk menampilkan data di consol
+        console.log("pertama", quotes[0]);
+        console.log("kedua", quotes[1]);
+        console.log("author quote 1", quotes[0].author);
+
+        const quote = document.getElementById("quote") //Pelajari fungsi methode ini
+        const author = document.getElementById("author") //Pelajari fungsi methode ini
+
+        let currentQuoteIndex = 0;
+
+        function updateQuote(index) {
+            //Methode untuk mengambil text yg ada di tag Id quote & authore
+            //Yang dimana parameternya adalah index dari dectionery quotes
+            //Fungsi ini aktif jika methode dipanggil
+            //Dipanggil dalam Methode Plumbung
+            quote.innerText = quotes[index].quote; //objek quote.inneText digunakan untuk memanggil property dari quote
+            author.innerText = quotes[index].author;
+        }
+
+        const prevButton = document.getElementById("prevBtn"); //Pelajari fungsi methode ini
+        const nextButton = document.getElementById("nextBtn"); //Pelajari fungsi methode ini
+
+        // code plumbing atau kode pipa yg digunakan untuk menyembuyikan & menyalurkan
+        //kurangi 1, tapi kalaua sudah mentok, kembali ke ujung kanan
+        prevButton.addEventListener("click", function() {
+            if (currentQuoteIndex === 0) { //0 dan "0" itu bisa dianggap sama. 0 adalah angka. "0"adalah string
+                currentQuoteIndex = quotes.length - 1; // ke quote yang paling ujung kanan dari index dectionery
+            } else {
+                currentQuoteIndex = currentQuoteIndex - 1; // ke quote yang paling awal dari index dectionery
+            }
+            updateQuote(currentQuoteIndex);
+        });
+
+        nextButton.addEventListener("click", function() {
+            currentQuoteIndex = (currentQuoteIndex === quotes.length - 1) ? 0 : currentQuoteIndex + 1;
+            //Cara mudah membaca kondisional atau if nya liat setelah ? True : Falsh
+            updateQuote(currentQuoteIndex);
+        });
+
+        updateQuote(currentQuoteIndex);
+        
+        
+    </script>
 </body>
 </html>
